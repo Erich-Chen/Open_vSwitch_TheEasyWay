@@ -99,9 +99,9 @@ sudo ovs-vsctl add-br br0 && \
 sudo ifconfig br0 up && \
 sudo ovs-vsctl add-port br0 ens33 && \
 sudo ifconfig ens33 0 && \
-sudo dhclient myVirutalSwitch && \
+sudo dhclient br0 && \
 ifconfig
 ```
-
+Note: You may still lost SSH connection because it may retrieve different IP address.  
 
 
