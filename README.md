@@ -17,25 +17,15 @@ Ubuntu Server 16.04.3 LTS installed on VMWare Player.
 The network interface name is 'ens33', a "Predictable Network Interface Name".  
 ```
 erich@ubuntu:~$ ifconfig
-ens33     Link encap:Ethernet  HWaddr 00:0c:29:a3:5b:47
-          inet addr:192.168.245.142  Bcast:192.168.245.255  Mask:255.255.255.0
-          inet6 addr: fe80::20c:29ff:fea3:5b47/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:146 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:85 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:16416 (16.4 KB)  TX bytes:19258 (19.2 KB)
-
-lo        Link encap:Local Loopback
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:160 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:160 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1
-          RX bytes:11840 (11.8 KB)  TX bytes:11840 (11.8 KB)
-
 ```
+          ens33     Link encap:Ethernet  HWaddr 00:0c:29:a3:5b:47
+                    inet addr:192.168.245.142  Bcast:192.168.245.255  Mask:255.255.255.0
+                    inet6 addr: fe80::20c:29ff:fea3:5b47/64 Scope:Link
+                    UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                    RX packets:146 errors:0 dropped:0 overruns:0 frame:0
+                    TX packets:85 errors:0 dropped:0 overruns:0 carrier:0
+                    collisions:0 txqueuelen:1000
+                    RX bytes:16416 (16.4 KB)  TX bytes:19258 (19.2 KB)
 
 ## Step by Step 
 
@@ -53,6 +43,8 @@ sudo ovs-vsctl --version
 I name it "myVirtualSwitch" instead of often used 'br0', you can name it anything you like. 
 ```
 sudo ovs-vsctl add-br myVirutalSwitch
+sudo ifconfig myVirtualSwitch up
+
 sudo ovs-vsctl show
 ```
     e4eebcc7-b9a7-4d42-bc71-972a0ebe1cc5
@@ -62,4 +54,43 @@ sudo ovs-vsctl show
                     type: internal
         ovs_version: "2.5.2"
 
-### 
+Note: With next step, you will lose connection to the host if you SSH to it.  You'd better sit in front of your computer. 
+Or you shall run these commands in one line.  
+```
+sudo ovs-vsctl add-port myVirtualSwitch ens33 && sudo ifconfig ens33 0 && sudo dhclient myVirutalSwitch
+```
+### Connect ens33 (my "real" network interface) to myVirtualSwitch
+   
+```
+sudo ovs-vsctl add-port myVirtualSwitch ens33
+
+```
+### Remove IP addressing on the "real" ens33; and enable DHCP on myVirtualSwitch
+```
+sudo ifconfig ens33 0
+sudo dhclient myVirutalSwitch
+
+ifconfig
+```
+          ens33     Link encap:Ethernet  HWaddr 00:0c:29:a3:5b:47
+                    inet6 addr: fe80::20c:29ff:fea3:5b47/64 Scope:Link
+                    UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                    RX packets:3352 errors:0 dropped:0 overruns:0 frame:0
+                    TX packets:1442 errors:0 dropped:0 overruns:0 carrier:0
+                    collisions:0 txqueuelen:1000
+                    RX bytes:2067580 (2.0 MB)  TX bytes:129613 (129.6 KB)
+
+          myVirtualSwitch Link encap:Ethernet  HWaddr 00:0c:29:a3:5b:47
+                    inet addr:192.168.245.142  Bcast:192.168.245.255  Mask:255.255.255.0
+                    inet6 addr: fe80::20c:29ff:fea3:5b47/64 Scope:Link
+                    UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+                    RX packets:490 errors:0 dropped:135 overruns:0 frame:0
+                    TX packets:74 errors:0 dropped:0 overruns:0 carrier:0
+                    collisions:0 txqueuelen:1
+                    RX bytes:43361 (43.3 KB)  TX bytes:16946 (16.9 KB)
+
+
+
+
+
+
