@@ -15,6 +15,7 @@ https://www.youtube.com/watch?v=rYW7kQRyUvA&t=275s
 ## My Enviroment  
 Ubuntu Server 16.04.3 LTS installed on VMWare Player.
 The network interface name is 'ens33', a "Predictable Network Interface Name".  
+Retrieving IP address via DHCP.  
 ```
 erich@ubuntu:~$ ifconfig
 ```
