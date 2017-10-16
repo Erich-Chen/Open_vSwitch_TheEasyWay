@@ -4,8 +4,8 @@ tried and tried to configure open vSwitch in my home lab for over ten times, I a
 ## The way I think ovs works  
 per my dummy understanding, open vSwitch works like:  
 a. create a virtual switch (often named br0 because we know bridge ~= switch);  
-b. add real NIC port to br0;  
-c. remove IP address from physic NIC port, then move the IP to br0 (the vritual switch); 
+b. add "real"/physic NIC port to br0;  
+c. remove IP address from physic NIC port, then move the IP to br0 (the vritual switch);  
 d. bring br0 up.  
 I think that's enough basic understanding for first time users.  
 
@@ -91,7 +91,17 @@ ifconfig
                     RX bytes:43361 (43.3 KB)  TX bytes:16946 (16.9 KB)
 
 
-
+## One-Line Version
+```
+sudo apt update && \
+sudo apt install -y openvswitch-switch && \
+sudo ovs-vsctl add-br br0 && \
+sudo ifconfig br0 up && \
+sudo ovs-vsctl add-port br0 ens33 && \
+sudo ifconfig ens33 0 && \
+sudo dhclient myVirutalSwitch && \
+ifconfig
+```
 
 
 
