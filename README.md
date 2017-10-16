@@ -1,4 +1,4 @@
-# Open_vSwitch_TheEasyWay  
+# Open_vSwitch_TheEasyWay to start  
 tried and tried to configure open vSwitch in my home lab for over ten times, I assume I get to an easy way to set up open vSwitch, at least working, with the most easy way, which is especially useful for the first time users like me.  
 
 ## The way I think ovs works  
