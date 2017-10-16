@@ -9,7 +9,7 @@ c. remove IP address from physic NIC port, then move the IP to br0 (the vritual 
 d. bring br0 up.  
 I think that's enough basic understanding for first time users.  
 
-this video introduces OVS very good.  
+a great video of OVS introuduction.  
 https://www.youtube.com/watch?v=rYW7kQRyUvA&t=275s  
 
 ## My Enviroment  
