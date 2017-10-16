@@ -104,4 +104,16 @@ ifconfig
 ```
 Note: You may still lost SSH connection because it may retrieve different IP address.  
 
+## Write into configuration file  
+```
+sudo vim /etc/network/interfaces
+```
+          # set ens33 for bridging
+          auto ens33
+          iface ens33 inet manual
+
+          # Open vSwitch bridge interface
+          auto br0
+          iface br0 inet dhcp
+            bridge_ports ens33
 
