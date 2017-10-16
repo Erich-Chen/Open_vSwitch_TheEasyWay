@@ -48,12 +48,12 @@ sudo ifconfig myVirtualSwitch up
 
 sudo ovs-vsctl show
 ```
-    e4eebcc7-b9a7-4d42-bc71-972a0ebe1cc5
-        Bridge myVirtualSwitch
-            Port myVirtualSwitch
-                Interface myVirtualSwitch
-                    type: internal
-        ovs_version: "2.5.2"
+          e4eebcc7-b9a7-4d42-bc71-972a0ebe1cc5
+              Bridge myVirtualSwitch
+                  Port myVirtualSwitch
+                      Interface myVirtualSwitch
+                          type: internal
+              ovs_version: "2.5.2"
 
 Note: With next step, you will lose connection to the host if you SSH to it.  You'd better sit in front of your computer. 
 Or you shall run these commands in one line.  
